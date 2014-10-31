@@ -9,16 +9,15 @@ import weborm.annotations.request.Handler;
 import weborm.annotations.request.RequestMethod;
 import weborm.controllers.RequestHandler;
 
-
-@Handler(path = "/:hello", method = RequestMethod.GET, contentType=ContentType.JSON)
+@Handler(path = "/:hello", method = RequestMethod.GET, contentType = ContentType.JSON)
 public class HelloWorld extends RequestHandler {
 	@NotNull
 	public String hello;
-	
+
 	@NotNull
 	public String name;
 
-	@weborm.annotations.inputs.NotNull
+	@NotNull
 	@Range(max = 50, min = 18)
 	public Integer age;
 

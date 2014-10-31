@@ -18,6 +18,7 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 import spark.Spark;
+import spark.SparkBase;
 import weborm.annotations.request.ContentType;
 import weborm.annotations.request.Handler;
 import weborm.annotations.request.RequestMethod;
@@ -27,12 +28,12 @@ import weborm.controllers.RequestHandler;
 import com.google.gson.Gson;
 
 public class Starter {
-	public static void init(int port, String packageName){
-		if ( port <= 0 || port >= 65536){
+	public static void init(int port, String packageName) {
+		if (port <= 0 || port >= 65536) {
 			throw new IllegalArgumentException("The port number should be 1-65535, now: " + port);
 		}
-		Spark.setPort(port);
-				
+		SparkBase.setPort(port);
+
 		Reflections reflections = new Reflections(packageName);
 		Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Handler.class);
 
@@ -63,17 +64,19 @@ public class Starter {
 								File file = (File) respObject;
 								FileInputStream fis = null;
 								try {
-									fis = new FileInputStream(file);									
-									// TODO: Check if modified or not from the file dates etc
-									// TODO: Put mime type from file, or create new class extending requesthandler
+									fis = new FileInputStream(file);
+									// TODO: Check if modified or not from the
+									// file dates etc
+									// TODO: Put mime type from file, or create
+									// new class extending requesthandler
 									response.body("");
-									if ( requestHandler.contentType != null){
-										response.type(requestHandler.contentType);										
+									if (requestHandler.contentType != null) {
+										response.type(requestHandler.contentType);
 									} else {
 										response.type("text/html");
 									}
 									response.status(200);
-									IOUtils.copy(fis, sos);									
+									IOUtils.copy(fis, sos);
 								} catch (IOException e) {
 									e.printStackTrace();
 								} finally {
@@ -96,7 +99,7 @@ public class Starter {
 							long startTime = System.nanoTime();
 							Object finalObject = null;
 							Object respObject = null;
-							
+
 							response.type(handler.contentType().getStr());
 							try {
 								RequestHandler requestHandler = (RequestHandler) cls.newInstance();
@@ -157,6 +160,6 @@ public class Starter {
 			res.status(500);
 			res.body(e.getMessage());
 		});
-		
+
 	}
 }
