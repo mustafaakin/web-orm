@@ -9,7 +9,7 @@ import weborm.annotations.request.Handler;
 import weborm.annotations.request.RequestMethod;
 import weborm.controllers.RequestHandler;
 
-@Handler(path = "/:hello", method = RequestMethod.GET, contentType = ContentType.JSON)
+@Handler(path = "/test/:hello", method = RequestMethod.GET, contentType = ContentType.TEXT)
 public class HelloWorld extends RequestHandler {
 	@NotNull
 	public String hello;
