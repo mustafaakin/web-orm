@@ -109,7 +109,7 @@ public abstract class RequestHandler {
 
 		// Map to existing fields, therefore don't fail when there extra
 		// parameters arrives
-		Field[] fields = cls.getDeclaredFields();
+		Field[] fields = cls.getFields();
 
 		// The
 		Map<String, String[]> queryMap = request.queryMap().toMap();
