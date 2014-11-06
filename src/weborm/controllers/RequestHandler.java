@@ -22,7 +22,7 @@ public abstract class RequestHandler {
 		validation_messages.clear();
 
 		Class<? extends RequestHandler> cls = this.getClass();
-		Field[] fields = cls.getDeclaredFields();
+		Field[] fields = cls.getFields();
 
 		for (Field field : fields) {
 			String fieldName = field.getName();
